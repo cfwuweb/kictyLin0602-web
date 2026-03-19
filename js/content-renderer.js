@@ -76,23 +76,11 @@ function renderServices() {
         return;
     }
     
-    let container = null;
-    const nextSection = serviceSection.parentElement;
-    if (nextSection) {
-        container = nextSection.querySelector('.grid');
-    }
+    // 在 #services 內部查找 .grid 容器
+    let container = serviceSection.querySelector('.grid');
     
     if (!container) {
-        console.warn('⚠️ 找不到服務項目容器');
-        const allGrids = document.querySelectorAll('section + div .grid, section .grid');
-        if (allGrids.length > 0) {
-            container = allGrids[0];
-            console.log('✓ 使用備選容器');
-        }
-    }
-    
-    if (!container) {
-        console.error('❌ 無法找到容器');
+        console.error('❌ 無法在 #services 內找到 .grid 容器');
         return;
     }
     
@@ -142,19 +130,11 @@ function renderTestimonials() {
         return;
     }
     
-    let container = null;
-    const nextSection = testimonialSection.parentElement;
-    if (nextSection) {
-        const allGrids = nextSection.querySelectorAll('.grid');
-        if (allGrids.length > 1) {
-            container = allGrids[1];
-        } else if (allGrids.length > 0) {
-            container = allGrids[0];
-        }
-    }
+    // 在 #testimonials 內部查找 .grid 容器
+    let container = testimonialSection.querySelector('.grid');
     
     if (!container) {
-        console.warn('⚠️ 找不到見證容器');
+        console.error('❌ 無法在 #testimonials 內找到 .grid 容器');
         return;
     }
     
