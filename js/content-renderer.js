@@ -26,6 +26,7 @@ async function loadSiteContent() {
         console.log('✅ JSON 數據加載成功:');
         console.log('  - 服務項目:', siteData.services?.length || 0);
         console.log('  - 客戶見證:', siteData.testimonials?.length || 0);
+        console.log('  - 聯絡方式:', Object.keys(siteData.contacts || {}).length);
         
         contentLoaded = true;
         renderAllContent();
@@ -49,6 +50,12 @@ function renderAllContent() {
         if (siteData.testimonials && siteData.testimonials.length > 0) {
             renderTestimonials();
         }
+
+        // 3. 更新聯絡信息（Footer 和 CTA 按鈕）
+        if (siteData.contacts) {
+            updateContactLinks();
+            updateFooterContacts();
+        }
         
         console.log('✅ 所有內容渲染完成！');
         
@@ -58,32 +65,25 @@ function renderAllContent() {
 }
 
 // ===================================
-// 服務項目渲染（最重要！）
+// 服務項目渲染
 // ===================================
 function renderServices() {
     console.log('📌 渲染服務項目...');
     
-    // 方法 1: 找到服務區段後的網格容器
     const serviceSection = document.getElementById('services');
     if (!serviceSection) {
         console.warn('⚠️ 找不到 id=services 的區段');
         return;
     }
     
-    // 從 id=services 開始，找到最近的 .grid
     let container = null;
-    let current = serviceSection;
-    
-    // 向下查找（在 services 的同級或子級中尋找）
     const nextSection = serviceSection.parentElement;
     if (nextSection) {
         container = nextSection.querySelector('.grid');
     }
     
     if (!container) {
-        console.warn('⚠️ 找不到服務項目容器 (.grid)');
-        console.warn('嘗試備選方案...');
-        // 備選：全頁面搜索第一個 .grid（應該是服務項目）
+        console.warn('⚠️ 找不到服務項目容器');
         const allGrids = document.querySelectorAll('section + div .grid, section .grid');
         if (allGrids.length > 0) {
             container = allGrids[0];
@@ -92,11 +92,10 @@ function renderServices() {
     }
     
     if (!container) {
-        console.error('❌ 無法找到任何容器');
+        console.error('❌ 無法找到容器');
         return;
     }
     
-    // 清空並渲染
     console.log(`清空舊内容，渲染 ${siteData.services.length} 個服務項目...`);
     container.innerHTML = '';
     
@@ -146,7 +145,6 @@ function renderTestimonials() {
     let container = null;
     const nextSection = testimonialSection.parentElement;
     if (nextSection) {
-        // 找到見證區段後第二個 .grid（因為服務項目是第一個）
         const allGrids = nextSection.querySelectorAll('.grid');
         if (allGrids.length > 1) {
             container = allGrids[1];
@@ -190,6 +188,159 @@ function renderTestimonials() {
     console.log(`✅ ${siteData.testimonials.length} 個見證已渲染`);
 }
 
+// ===================================
+// 聯絡信息渲染
+// ===================================
+
+/**
+ * 更新頁面中的聯絡連結（購物動作按鈕）
+ */
+function updateContactLinks() {
+    console.log('📌 更新聯絡連結...');
+    
+    if (!siteData.contacts) return;
+    
+    const contacts = siteData.contacts;
+    
+    // 更新 CTA 按鈕（LINE 諮詢）
+    if (contacts.line && contacts.line.url) {
+        const lineButtons = document.querySelectorAll('a[href*="line"], a:has(i.fa-brands.fa-line)');
+        lineButtons.forEach(btn => {
+            if (btn.href.includes('line') || btn.textContent.includes('LINE')) {
+                btn.href = contacts.line.url;
+                btn.textContent = `${contacts.line.displayText}`;
+                console.log('✓ LINE 按鈕已更新');
+            }
+        });
+    }
+    
+    // 更新 Facebook 連結
+    if (contacts.facebook && contacts.facebook.url) {
+        const fbLinks = document.querySelectorAll('a[href*="facebook"]');
+        fbLinks.forEach(link => {
+            link.href = contacts.facebook.url;
+            console.log('✓ Facebook 連結已更新');
+        });
+    }
+    
+    // 更新 Instagram 連結
+    if (contacts.instagram && contacts.instagram.url) {
+        const igLinks = document.querySelectorAll('a[href*="instagram"]');
+        igLinks.forEach(link => {
+            link.href = contacts.instagram.url;
+            console.log('✓ Instagram 連結已更新');
+        });
+    }
+}
+
+/**
+ * 更新 Footer 中的聯絡信息
+ */
+function updateFooterContacts() {
+    console.log('📌 更新 Footer 聯絡方式...');
+    
+    if (!siteData.contacts) return;
+    
+    const contacts = siteData.contacts;
+    const footer = document.querySelector('footer');
+    if (!footer) {
+        console.warn('⚠️ 找不到 footer 元素');
+        return;
+    }
+    
+    // 尋找或創建聯絡方式容器
+    let contactsContainer = footer.querySelector('[data-contacts-container]');
+    
+    if (!contactsContainer) {
+        // 如果沒有，就在 social links 之前或之後創建一個
+        const socialLinksDiv = footer.querySelector('.flex.gap-5');
+        if (socialLinksDiv) {
+            contactsContainer = document.createElement('div');
+            contactsContainer.className = 'flex flex-col md:flex-row gap-6 text-center md:text-left text-sm';
+            contactsContainer.setAttribute('data-contacts-container', 'true');
+            socialLinksDiv.parentElement.insertBefore(contactsContainer, socialLinksDiv);
+        }
+    }
+    
+    if (contactsContainer) {
+        let html = '';
+        
+        // 添加電話
+        if (contacts.phone) {
+            html += `
+                <div class="flex items-center justify-center md:justify-start gap-2">
+                    <i class="${contacts.phone.icon} text-brand-green"></i>
+                    <a href="${contacts.phone.url}" class="text-gray-600 hover:text-brand-green transition">
+                        ${contacts.phone.value}
+                    </a>
+                </div>
+            `;
+        }
+        
+        // 添加 LINE
+        if (contacts.line) {
+            html += `
+                <div class="flex items-center justify-center md:justify-start gap-2">
+                    <i class="${contacts.line.icon} text-green-500"></i>
+                    <a href="${contacts.line.url}" class="text-gray-600 hover:text-green-500 transition" target="_blank">
+                        ${contacts.line.value}
+                    </a>
+                </div>
+            `;
+        }
+        
+        contactsContainer.innerHTML = html;
+        console.log('✓ Footer 聯絡方式已更新');
+    } else {
+        console.warn('⚠️ 無法創建聯絡方式容器');
+    }
+    
+    // 更新社群媒體連結
+    updateSocialLinks();
+}
+
+/**
+ * 更新社群媒體連結
+ */
+function updateSocialLinks() {
+    console.log('📌 更新社群媒體連結...');
+    
+    if (!siteData.contacts) return;
+    
+    const contacts = siteData.contacts;
+    const socialContainer = document.querySelector('footer .flex.gap-5');
+    
+    if (!socialContainer) {
+        console.warn('⚠️ 找不到社群媒體容器');
+        return;
+    }
+    
+    // 清空舊的
+    socialContainer.innerHTML = '';
+    
+    // Facebook
+    if (contacts.facebook && contacts.facebook.url) {
+        const fbLink = document.createElement('a');
+        fbLink.href = contacts.facebook.url;
+        fbLink.target = '_blank';
+        fbLink.className = 'w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-xl';
+        fbLink.innerHTML = `<i class="${contacts.facebook.icon}"></i>`;
+        socialContainer.appendChild(fbLink);
+        console.log('✓ Facebook 圖標已添加');
+    }
+    
+    // Instagram
+    if (contacts.instagram && contacts.instagram.url) {
+        const igLink = document.createElement('a');
+        igLink.href = contacts.instagram.url;
+        igLink.target = '_blank';
+        igLink.className = 'w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-xl';
+        igLink.innerHTML = `<i class="${contacts.instagram.icon}"></i>`;
+        socialContainer.appendChild(igLink);
+        console.log('✓ Instagram 圖標已添加');
+    }
+}
+
 // === 調試輔助函數 ===
 window.debugContent = function() {
     console.log('=== 內容加載調試信息 ===');
@@ -197,12 +348,14 @@ window.debugContent = function() {
     console.log('完整數據:', siteData);
     console.log('服務項目:', siteData.services);
     console.log('見證:', siteData.testimonials);
+    console.log('聯絡信息:', siteData.contacts);
     
-    // 檢查 DOM
-    console.log('=== DOM 檢查 ===');
-    console.log('id=services:', document.getElementById('services') ? '✓ 存在' : '✗ 不存在');
-    console.log('id=testimonials:', document.getElementById('testimonials') ? '✓ 存在' : '✗ 不存在');
-    console.log('.grid 數量:', document.querySelectorAll('.grid').length);
+    console.log('=== 聯絡信息詳情 ===');
+    if (siteData.contacts) {
+        Object.entries(siteData.contacts).forEach(([key, value]) => {
+            console.log(`${key}:`, value);
+        });
+    }
 };
 
 // 頁面加載完成日誌
@@ -211,6 +364,6 @@ window.addEventListener('load', function() {
     if (contentLoaded) {
         console.log('✅ 內容已成功加載並渲染');
     } else {
-        console.warn('⚠️ 內容尚未加載，請檢查 JSON');
+        console.warn('⚠️ 內容尚未加載');
     }
 });
