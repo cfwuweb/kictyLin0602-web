@@ -1,0 +1,87 @@
+{
+  "brand": {
+    "name": "心馨到府",
+    "subtitle": "芝秀月嫂",
+    "serviceArea": "新竹竹北",
+    "description": "10 年實戰經驗、科學育兒與營養調理。用醫療級的嚴謹與母親般的溫暖，陪您安心度過黃金月子期。"
+  },
+  "hero": {
+    "mainTitle": "不只是帶小孩，更是您身心修復的溫柔守護者。",
+    "tagline": "📍 專注服務大新竹 / 竹北地區",
+    "cta1Text": "免費線上諮詢",
+    "cta2Text": "了解服務流程"
+  },
+  "services": [
+    {
+      "id": 1,
+      "icon": "fa-solid fa-person-breastfeeding",
+      "title": "產婦身心修復",
+      "items": [
+        "專業無痛泌乳按摩疏通",
+        "古法綁腹帶與子宮按摩",
+        "產後憂鬱預防與心理支持",
+        "大風草藥浴協助擦澡"
+      ]
+    },
+    {
+      "id": 2,
+      "icon": "fa-solid fa-baby",
+      "title": "新生兒科學照護",
+      "items": [
+        "溫和沐浴與每日臍帶護理",
+        "黃疸、紅臀等數據化監測",
+        "蒙特梭利 0-1M 視聽啟蒙",
+        "日夜作息溫和引導建立"
+      ]
+    },
+    {
+      "id": 3,
+      "icon": "fa-solid fa-bowl-rice",
+      "title": "客製化精緻藥膳",
+      "items": [
+        "三餐現做，拒絕塑膠微波",
+        "依產後週數四階段調理",
+        "每日泌乳茶、養肝茶熬煮",
+        "熱量控制，養胎不養肉"
+      ]
+    },
+    {
+      "id": 4,
+      "icon": "fa-solid fa-spray-can-sparkles",
+      "title": "環境控管與清消",
+      "items": [
+        "產婦房、嬰兒房次氯酸清消",
+        "奶瓶、擠乳器高溫殺菌",
+        "母嬰衣物分類手洗/機洗",
+        "保持動線淨空預防跌倒"
+      ]
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "quote": "芝秀救了我的母乳之路！因為塞奶痛到哭，她不僅用溫柔的手法幫我無痛疏通，還安撫了我的焦慮。她做的藥膳排骨比外面餐廳還好吃！",
+      "author": "竹北 林小姐",
+      "type": "第一胎 新手媽媽 (30天)",
+      "imageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+    },
+    {
+      "id": 2,
+      "quote": "身為工程師非常看重『數據和SOP』。芝秀每天記錄寶寶奶量、大小便次數，作息調整非常有邏輯，讓我們接手時完全不慌亂，超級推薦！",
+      "author": "東區 張先生",
+      "type": "第二胎 雙寶家庭 (45天)",
+      "imageUrl": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+    },
+    {
+      "id": 3,
+      "quote": "這是我第二次找芝秀了。把寶寶照顧得健康外，還很會開導大寶情緒，準備的副食品和月子餐全家都愛吃，根本捨不得她退房。",
+      "author": "竹北 陳太太",
+      "type": "高齡產婦 (60天)",
+      "imageUrl": "https://images.unsplash.com/photo-1531123897727-8f129e1bf98a?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+    }
+  ],
+  "availability": {
+    "status": "2026年 07月 - 12月：熱烈預約中",
+    "spotsLeft": "2"
+  }
+}
