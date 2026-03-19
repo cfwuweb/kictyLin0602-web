@@ -6,6 +6,7 @@ let siteData = {};
 
 // === 頁面初始化 ===
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔄 頁面已加載，開始加載內容...');
     loadSiteContent();
     setupNavigation();
 });
@@ -15,32 +16,51 @@ async function loadSiteContent() {
     try {
         // 添加時間戳以強制刷新快取（GitHub Pages 快取問題）
         const timestamp = new Date().getTime();
-        const response = await fetch(`data/content.json?v=${timestamp}`, {
+        const jsonUrl = `data/content.json?v=${timestamp}`;
+        
+        console.log(`📤 正在加載：${jsonUrl}`);
+        
+        const response = await fetch(jsonUrl, {
             cache: 'no-store'  // 強制不使用快取
         });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         siteData = await response.json();
+        console.log('✅ JSON 加載成功', siteData);
         renderContent();
+        console.log('✅ 內容渲染完成');
     } catch (error) {
-        console.error('Error loading content:', error);
+        console.error('❌ 加載內容失敗:', error);
+        console.error('錯誤詳情:', error.message);
         // 即使加載失敗，頁面也不會損壞
     }
 }
 
 // === 渲染所有內容 ===
 function renderContent() {
+    console.log('🎨 開始渲染內容...');
+    
     if (siteData.brand) {
+        console.log('更新品牌信息...');
         updateBrandInfo();
     }
     if (siteData.hero) {
+        console.log('更新首屏內容...');
         updateHeroSection();
     }
     if (siteData.services && siteData.services.length > 0) {
+        console.log(`渲染 ${siteData.services.length} 個服務項目...`);
         renderServices();
     }
     if (siteData.testimonials && siteData.testimonials.length > 0) {
+        console.log(`渲染 ${siteData.testimonials.length} 個見證...`);
         renderTestimonials();
     }
     if (siteData.availability) {
+        console.log('更新檔期狀態...');
         updateAvailability();
     }
 }
@@ -53,15 +73,29 @@ function updateBrandInfo() {
     const brand = siteData.brand;
     
     // 更新導覽列
-    const navLinks = document.querySelectorAll('nav .flex-shrink-0 span');
-    if (navLinks.length > 0) {
-        navLinks[0].textContent = `${brand.name} ${brand.subtitle}`;
+    const navBrand = document.querySelector('nav .flex-shrink-0 span:nth-child(2)');
+    if (navBrand) {
+        navBrand.innerHTML = `${brand.name} <span class="text-base font-sans font-normal text-gray-500 ml-1">${brand.subtitle}</span>`;
+        console.log('✓ 導覽列已更新');
+    } else {
+        console.warn('⚠️ 找不到導覽列品牌元素');
     }
 
     // 更新 Footer
-    const footerText = document.querySelector('footer .text-center md\\:text-left p');
-    if (footerText) {
-        footerText.textContent = `提供${brand.serviceArea}地區最專業的產後居家照護。`;
+    const footerBrand = document.querySelector('footer .text-center.md\\:text-left .flex.items-center.justify-center span');
+    if (footerBrand) {
+        footerBrand.textContent = `${brand.name} ${brand.subtitle}`;
+        console.log('✓ Footer 品牌已更新');
+    } else {
+        console.warn('⚠️ 找不到 Footer 品牌元素');
+    }
+
+    const footerDesc = document.querySelector('footer .text-center.md\\:text-left p');
+    if (footerDesc) {
+        footerDesc.textContent = `提供${brand.serviceArea}地區最專業的產後居家照護。`;
+        console.log('✓ Footer 描述已更新');
+    } else {
+        console.warn('⚠️ 找不到 Footer 描述元素');
     }
 }
 
@@ -77,21 +111,31 @@ function updateHeroSection() {
     const taglineEl = document.querySelector('.hero-bg .inline-block');
     if (taglineEl) {
         taglineEl.textContent = hero.tagline;
+        console.log('✓ 首屏標籤已更新');
+    } else {
+        console.warn('⚠️ 找不到首屏標籤元素');
     }
 
     // 更新主標題
     const titleEl = document.querySelector('.hero-bg h1');
     if (titleEl && hero.mainTitle) {
-        titleEl.innerHTML = hero.mainTitle.replace(/\n/g, '<br>').replace(
-            /溫柔守護者。/,
-            '<span class="text-brand-green block mt-2">溫柔守護者。</span>'
-        );
+        titleEl.innerHTML = hero.mainTitle
+            .replace(/\n/g, '<br>')
+            .replace(/溫柔守護者。/, '<span class="text-brand-green block mt-2">溫柔守護者。</span>');
+        console.log('✓ 首屏主標題已更新');
+    } else {
+        console.warn('⚠️ 找不到首屏主標題元素');
     }
 
     // 更新描述
-    const descEl = document.querySelector('.hero-bg > div p');
-    if (descEl && brand.description) {
-        descEl.innerHTML = brand.description.replace(/\n/g, '<br class="hidden sm:block">');
+    const sections = document.querySelectorAll('.hero-bg > div > div');
+    for (let section of sections) {
+        const p = section.querySelector('p.text-lg');
+        if (p && brand.description) {
+            p.innerHTML = brand.description.replace(/\n/g, '<br class="hidden sm:block">');
+            console.log('✓ 品牌描述已更新');
+            break;
+        }
     }
 }
 
@@ -100,8 +144,17 @@ function updateHeroSection() {
 // ===================================
 
 function renderServices() {
-    const container = document.querySelector('#services ~ .max-w-6xl .grid');
-    if (!container) return;
+    const servicesSection = document.getElementById('services');
+    if (!servicesSection) {
+        console.warn('⚠️ 找不到 #services 區域');
+        return;
+    }
+
+    const container = servicesSection.parentElement.querySelector('.grid');
+    if (!container) {
+        console.warn('⚠️ 找不到服務項目容器');
+        return;
+    }
 
     container.innerHTML = '';
 
@@ -124,6 +177,8 @@ function renderServices() {
         `;
         container.appendChild(card);
     });
+    
+    console.log(`✓ ${siteData.services.length} 個服務項目已渲染`);
 }
 
 // ===================================
@@ -131,8 +186,17 @@ function renderServices() {
 // ===================================
 
 function renderTestimonials() {
-    const container = document.querySelector('#testimonials ~ .max-w-6xl .grid');
-    if (!container) return;
+    const testimonialsSection = document.getElementById('testimonials');
+    if (!testimonialsSection) {
+        console.warn('⚠️ 找不到 #testimonials 區域');
+        return;
+    }
+
+    const container = testimonialsSection.parentElement.querySelector('.grid');
+    if (!container) {
+        console.warn('⚠️ 找不到見證容器');
+        return;
+    }
 
     container.innerHTML = '';
 
@@ -156,6 +220,8 @@ function renderTestimonials() {
         `;
         container.appendChild(card);
     });
+    
+    console.log(`✓ ${siteData.testimonials.length} 個見證已渲染`);
 }
 
 // ===================================
@@ -165,17 +231,31 @@ function renderTestimonials() {
 function updateAvailability() {
     const availability = siteData.availability;
     
-    // 更新檔期文本
-    const statusEl = document.querySelector('#contact .text-gray-800.text-lg.md\\:text-xl p:not(.line-through):not(.text-base)');
-    if (statusEl) {
-        statusEl.innerHTML = availability.status;
+    // 查找檔期狀態位置
+    const contactSection = document.getElementById('contact');
+    if (!contactSection) {
+        console.warn('⚠️ 找不到 #contact 區域');
+        return;
     }
 
-    // 更新名額
-    const spotsEl = document.querySelector('#contact .text-base.text-gray-600');
-    if (spotsEl && availability.spotsLeft) {
-        spotsEl.innerHTML = `為了維持最高品質的照護，芝秀每月僅服務一組家庭。<br class="hidden sm:block">
-            強烈建議於驗孕拿到媽媽手冊後，盡早預約諮詢。`;
+    // 更新檔期文本
+    const allParagraphs = contactSection.querySelectorAll('p');
+    let statusUpdated = false;
+    let slotsUpdated = false;
+
+    allParagraphs.forEach(p => {
+        // 查找包含年份的段落（檔期狀態）
+        if (p.textContent.includes('年') && !statusUpdated) {
+            if (!p.classList.contains('line-through') && !p.classList.contains('text-base')) {
+                p.innerHTML = availability.status;
+                statusUpdated = true;
+                console.log('✓ 檔期狀態已更新');
+            }
+        }
+    });
+
+    if (!statusUpdated) {
+        console.warn('⚠️ 找不到檔期狀態文本');
     }
 }
 
@@ -184,6 +264,8 @@ function updateAvailability() {
 // ===================================
 
 function setupNavigation() {
+    console.log('⚙️ 設置導覽功能...');
+    
     // 手機版選單切換
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -228,4 +310,16 @@ function setupNavigation() {
         navLogo.style.cursor = 'pointer';
         navLogo.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
+    
+    console.log('✓ 導覽功能已設置');
 }
+
+// === 導出調試函數 ===
+window.debugContentLoader = function() {
+    console.log('=== 內容加載調試信息 ===');
+    console.log('已加載的數據:', siteData);
+    console.log('服務項目數:', siteData.services?.length || 0);
+    console.log('見證數:', siteData.testimonials?.length || 0);
+};
+
+console.log('✅ content-renderer.js 已加載');
