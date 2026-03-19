@@ -1,0 +1,33 @@
+# GitHub Pages 快取設置
+# 防止 GitHub Pages 快取靜態資源
+
+# 構建設置
+future: true
+safe: false
+
+# 插件
+plugins:
+  - jekyll-redirect-from
+
+# 排除文件（可選）
+exclude:
+  - .git
+  - .gitignore
+  - README.md
+
+# 不轉換的文件類型
+keep_files:
+  - data
+  - css
+  - js
+
+# 標記為原始文件，不進行 Liquid 處理
+defaults:
+  - scope:
+      path: "data"
+    values:
+      sitemap: false
+  - scope:
+      path: "css"
+    values:
+      sitemap: false

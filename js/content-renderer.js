@@ -13,7 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // === 加載內容 ===
 async function loadSiteContent() {
     try {
-        const response = await fetch('data/content.json');
+        // 添加時間戳以強制刷新快取（GitHub Pages 快取問題）
+        const timestamp = new Date().getTime();
+        const response = await fetch(`data/content.json?v=${timestamp}`, {
+            cache: 'no-store'  // 強制不使用快取
+        });
         siteData = await response.json();
         renderContent();
     } catch (error) {
