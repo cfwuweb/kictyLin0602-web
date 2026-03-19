@@ -1,1 +1,380 @@
-<H1>  Hi !! My name is Lin </H1>
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芝秀專業到府月嫂 | 新竹竹北頂級母嬰照護</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Noto Serif TC (標題) & Noto Sans TC (內文) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    },
+                    colors: {
+                        'brand-green': '#9DC183', // 鼠尾草綠
+                        'brand-green-dark': '#7A9A63',
+                        'brand-peach': '#F7E7CE', // 蜜桃膚色
+                        'brand-stone': '#FAF9F6', // 暖白背景
+                        'text-main': '#2C3E50', // 深灰藍
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FAF9F6; color: #2C3E50; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(250, 249, 246, 0.8), rgba(250, 249, 246, 0.9)), url('https://images.unsplash.com/photo-1519689680058-324335c77eba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 導覽列 (Navigation) -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-leaf text-brand-green text-2xl"></i>
+                    <span class="font-serif font-bold text-xl md:text-2xl tracking-wider text-text-main">心馨到府 <span class="text-base font-sans font-normal text-gray-500 ml-1">芝秀月嫂</span></span>
+                </div>
+                <!-- 桌面版選單 -->
+                <div class="hidden md:flex space-x-8 items-center text-lg">
+                    <a href="#about" class="text-gray-600 hover:text-brand-green transition">關於芝秀</a>
+                    <a href="#services" class="text-gray-600 hover:text-brand-green transition">服務項目</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-brand-green transition">家長見證</a>
+                    <a href="#contact" class="bg-brand-green text-white px-6 py-2.5 rounded-full font-medium hover:bg-brand-green-dark transition shadow-sm hover:shadow-md">
+                        查看檔期 & 預約
+                    </a>
+                </div>
+                <!-- 手機版漢堡按鈕 -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-green focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 手機版隱藏選單 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col text-center">
+                <a href="#about" class="block px-3 py-4 text-lg text-gray-700 hover:bg-brand-stone rounded-md">關於芝秀</a>
+                <a href="#services" class="block px-3 py-4 text-lg text-gray-700 hover:bg-brand-stone rounded-md">服務項目</a>
+                <a href="#testimonials" class="block px-3 py-4 text-lg text-gray-700 hover:bg-brand-stone rounded-md">家長見證</a>
+                <a href="#contact" class="block px-3 py-4 mt-2 text-lg text-white bg-brand-green rounded-full mx-4 font-medium">查看檔期 & 預約</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首屏 (Hero Section) -->
+    <section class="hero-bg min-h-screen flex items-center pt-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div class="lg:w-1/2 space-y-6 md:space-y-8 mt-10 lg:mt-0 text-center lg:text-left">
+                <div class="inline-block bg-brand-peach px-5 py-2 rounded-full text-base font-medium text-orange-800 tracking-wide">
+                    📍 專注服務大新竹 / 竹北地區
+                </div>
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-text-main">
+                    不只是帶小孩，<br>
+                    更是您身心修復的<br>
+                    <span class="text-brand-green block mt-2">溫柔守護者。</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed font-sans max-w-2xl mx-auto lg:mx-0">
+                    10 年實戰經驗、科學育兒與營養調理。<br class="hidden sm:block">
+                    用醫療級的嚴謹與母親般的溫暖，陪您安心度過黃金月子期。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
+                    <a href="#contact" class="w-full sm:w-auto bg-brand-green text-white text-center px-8 py-4 rounded-full font-medium hover:bg-brand-green-dark transition shadow-lg text-lg">
+                        <i class="fa-brands fa-line mr-2"></i>免費線上諮詢
+                    </a>
+                    <a href="#services" class="w-full sm:w-auto bg-white text-text-main text-center px-8 py-4 rounded-full font-medium border border-gray-200 hover:bg-gray-50 transition shadow-sm text-lg">
+                        了解服務流程
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 信任訊號區 (Trust Badges) -->
+            <div class="lg:w-1/2 w-full">
+                <div class="bg-white/90 backdrop-blur p-6 md:p-8 rounded-3xl shadow-xl border border-white">
+                    <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="嬰兒安睡" class="rounded-2xl w-full h-48 md:h-64 object-cover mb-6 md:mb-8 shadow-sm">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                        <div class="flex items-center gap-4 p-2">
+                            <div class="w-14 h-14 shrink-0 bg-brand-peach rounded-full flex items-center justify-center text-orange-600">
+                                <i class="fa-solid fa-certificate text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-base md:text-lg text-text-main">國家保母技術士</p>
+                                <p class="text-sm text-gray-500">合格證照認證</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-2">
+                            <div class="w-14 h-14 shrink-0 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                                <i class="fa-solid fa-heart-pulse text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-base md:text-lg text-text-main">嬰幼兒 CPR+AED</p>
+                                <p class="text-sm text-gray-500">定期複訓認證</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-2">
+                            <div class="w-14 h-14 shrink-0 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-droplet text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-base md:text-lg text-text-main">專業泌乳指導</p>
+                                <p class="text-sm text-gray-500">無痛疏通技術</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-2">
+                            <div class="w-14 h-14 shrink-0 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                                <i class="fa-solid fa-users text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-base md:text-lg text-text-main">100+ 家庭見證</p>
+                                <p class="text-sm text-gray-500">零客訴安心口碑</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服務項目 (Services) -->
+    <section id="services" class="py-16 md:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-text-main mb-4 md:mb-6">全方位的黃金月子照護系統</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">拒絕無效傳統，導入科學實證。我們將月子期拆解為四大核心模組，精準照護母嬰需求。</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Card 1 -->
+                <div class="bg-brand-stone p-6 md:p-8 rounded-2xl hover:shadow-lg transition group border border-gray-100">
+                    <div class="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-green text-3xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-person-breastfeeding"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl md:text-2xl mb-4 text-text-main">產婦身心修復</h3>
+                    <ul class="text-gray-700 space-y-3 text-base">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>專業無痛泌乳按摩疏通</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>古法綁腹帶與子宮按摩</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>產後憂鬱預防與心理支持</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>大風草藥浴協助擦澡</li>
+                    </ul>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-brand-stone p-6 md:p-8 rounded-2xl hover:shadow-lg transition group border border-gray-100">
+                    <div class="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-green text-3xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-baby"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl md:text-2xl mb-4 text-text-main">新生兒科學照護</h3>
+                    <ul class="text-gray-700 space-y-3 text-base">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>溫和沐浴與每日臍帶護理</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>黃疸、紅臀等數據化監測</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>蒙特梭利 0-1M 視聽啟蒙</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>日夜作息溫和引導建立</li>
+                    </ul>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-brand-stone p-6 md:p-8 rounded-2xl hover:shadow-lg transition group border border-gray-100">
+                    <div class="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-green text-3xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-bowl-rice"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl md:text-2xl mb-4 text-text-main">客製化精緻藥膳</h3>
+                    <ul class="text-gray-700 space-y-3 text-base">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>三餐現做，拒絕塑膠微波</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>依產後週數四階段調理</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>每日泌乳茶、養肝茶熬煮</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>熱量控制，養胎不養肉</li>
+                    </ul>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-brand-stone p-6 md:p-8 rounded-2xl hover:shadow-lg transition group border border-gray-100">
+                    <div class="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-green text-3xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-spray-can-sparkles"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl md:text-2xl mb-4 text-text-main">環境控管與清消</h3>
+                    <ul class="text-gray-700 space-y-3 text-base">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>產婦房、嬰兒房次氯酸清消</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>奶瓶、擠乳器高溫殺菌</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>母嬰衣物分類手洗/機洗</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-green mt-1 mr-3 shrink-0"></i>保持動線淨空預防跌倒</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 食膳展示 (Meal Gallery) -->
+    <section class="py-16 bg-brand-stone">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12 bg-white p-6 md:p-12 rounded-3xl shadow-sm border border-gray-100">
+                <div class="lg:w-1/2 w-full">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="健康月子餐" class="rounded-2xl shadow-md w-full h-64 md:h-80 object-cover">
+                </div>
+                <div class="lg:w-1/2 w-full space-y-6">
+                    <h3 class="font-serif text-3xl md:text-4xl font-bold text-text-main">星級月子膳食，顛覆傳統想像</h3>
+                    <p class="text-gray-700 text-lg md:text-xl leading-relaxed">
+                        「月子餐不該是痛苦的考驗。」<br>芝秀具備中餐烹調丙級證照，結合現代營養學與中醫四階段調理（排毒、修復、大補、固氣），為您打造少油低鹽、豐富多樣的星級居家料理。
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="bg-orange-50 text-orange-700 px-4 py-1.5 rounded-full text-base font-medium border border-orange-100">#中餐丙級證照</span>
+                        <span class="bg-orange-50 text-orange-700 px-4 py-1.5 rounded-full text-base font-medium border border-orange-100">#無水料理</span>
+                        <span class="bg-orange-50 text-orange-700 px-4 py-1.5 rounded-full text-base font-medium border border-orange-100">#客製化菜單</span>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- 社會證明 (Testimonials) -->
+    <section id="testimonials" class="py-16 md:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-text-main mb-4 md:mb-6">聽聽新竹媽媽們怎麼說</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg md:text-xl">真實的口碑，是我們最自豪的履歷。</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <!-- 評論 1 -->
+                <div class="bg-brand-stone p-8 rounded-2xl relative shadow-sm">
+                    <i class="fa-solid fa-quote-left text-5xl text-brand-green/20 absolute top-6 left-6"></i>
+                    <p class="text-gray-800 text-lg relative z-10 mb-8 mt-6 leading-relaxed">
+                        「芝秀救了我的母乳之路！因為塞奶痛到哭，她不僅用溫柔的手法幫我無痛疏通，還安撫了我的焦慮。她做的藥膳排骨比外面餐廳還好吃！」
+                    </p>
+                    <div class="flex items-center gap-4 border-t border-gray-200 pt-6">
+                        <div class="w-14 h-14 shrink-0 bg-gray-300 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg text-text-main">竹北 林小姐</p>
+                            <p class="text-base text-gray-500">第一胎 新手媽媽 (30天)</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 評論 2 -->
+                <div class="bg-brand-stone p-8 rounded-2xl relative shadow-sm">
+                    <i class="fa-solid fa-quote-left text-5xl text-brand-green/20 absolute top-6 left-6"></i>
+                    <p class="text-gray-800 text-lg relative z-10 mb-8 mt-6 leading-relaxed">
+                        「身為工程師非常看重『數據和SOP』。芝秀每天記錄寶寶奶量、大小便次數，作息調整非常有邏輯，讓我們接手時完全不慌亂，超級推薦！」
+                    </p>
+                    <div class="flex items-center gap-4 border-t border-gray-200 pt-6">
+                        <div class="w-14 h-14 shrink-0 bg-gray-300 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg text-text-main">東區 張先生</p>
+                            <p class="text-base text-gray-500">第二胎 雙寶家庭 (45天)</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 評論 3 -->
+                <div class="bg-brand-stone p-8 rounded-2xl relative shadow-sm">
+                    <i class="fa-solid fa-quote-left text-5xl text-brand-green/20 absolute top-6 left-6"></i>
+                    <p class="text-gray-800 text-lg relative z-10 mb-8 mt-6 leading-relaxed">
+                        「這是我第二次找芝秀了。把寶寶照顧得健康外，還很會開導大寶情緒，準備的副食品和月子餐全家都愛吃，根本捨不得她退房。」
+                    </p>
+                    <div class="flex items-center gap-4 border-t border-gray-200 pt-6">
+                        <div class="w-14 h-14 shrink-0 bg-gray-300 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1bf98a?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg text-text-main">竹北 陳太太</p>
+                            <p class="text-base text-gray-500">高齡產婦 (60天)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 預約與檔期 (Contact & Scarcity) -->
+    <section id="contact" class="py-16 md:py-24 bg-brand-peach/30 relative overflow-hidden">
+        <div class="absolute -top-10 -right-20 text-brand-peach opacity-40 text-[15rem] md:text-[25rem] pointer-events-none">
+            <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="font-serif text-3xl md:text-5xl font-bold text-text-main mb-6 md:mb-10">為您的寶寶保留最安心的守護</h2>
+            
+            <div class="bg-white p-6 md:p-10 rounded-3xl shadow-xl mb-10 max-w-2xl mx-auto border-t-4 border-red-400">
+                <div class="flex items-center justify-center gap-3 text-red-500 mb-4">
+                    <i class="fa-solid fa-clock font-bold text-2xl"></i>
+                    <span class="font-bold tracking-wide text-xl">最新檔期狀態更新</span>
+                </div>
+                <div class="text-gray-800 text-lg md:text-xl mb-6 space-y-2">
+                    <p class="line-through text-gray-400">2026年 01月 - 06月：檔期已全數額滿</p>
+                    <p class="font-bold text-brand-green-dark text-xl md:text-2xl">2026年 07月 - 12月：熱烈預約中（剩餘 2 席）</p>
+                </div>
+                <p class="text-base text-gray-600 bg-gray-50 p-4 rounded-xl">為了維持最高品質的照護，芝秀每月僅服務一組家庭。<br class="hidden sm:block">強烈建議於驗孕拿到媽媽手冊後，盡早預約諮詢。</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
+                <a href="#" class="w-full sm:w-auto bg-[#00B900] text-white px-8 py-4 md:py-5 rounded-full font-bold text-xl hover:bg-[#009900] transition shadow-lg flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-line text-3xl"></i> 加 LINE 線上諮詢
+                </a>
+                <a href="#" class="w-full sm:w-auto bg-white text-text-main px-8 py-4 md:py-5 rounded-full font-bold text-xl hover:bg-gray-50 transition border border-gray-200 shadow-sm flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-file-invoice-dollar text-2xl"></i> 索取服務報價單
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-10 md:py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-3">
+                    <i class="fa-solid fa-leaf text-brand-green text-2xl"></i>
+                    <span class="font-serif font-bold text-xl text-text-main">心馨到府 芝秀月嫂工作室</span>
+                </div>
+                <p class="text-gray-500 text-base">提供大新竹、竹北地區最專業的產後居家照護。</p>
+            </div>
+            <div class="flex gap-5">
+                <a href="#" class="w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-xl">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-xl">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+            <div class="text-gray-400 text-sm md:text-base">
+                &copy; 2026 Zhi-Xiu Care Studio.<br class="md:hidden"> All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- 手機版選單切換 Script -->
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            var menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // 點擊選單連結後自動關閉選單
+        const mobileLinks = document.querySelectorAll('#mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
