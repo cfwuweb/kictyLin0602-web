@@ -13,6 +13,9 @@
     <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- 引入自訂 CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -32,14 +35,6 @@
             }
         }
     </script>
-    <style>
-        body { background-color: #FAF9F6; color: #2C3E50; }
-        .hero-bg {
-            background-image: linear-gradient(rgba(250, 249, 246, 0.8), rgba(250, 249, 246, 0.9)), url('https://images.unsplash.com/photo-1519689680058-324335c77eba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
 </head>
 <body class="antialiased">
 
@@ -357,24 +352,7 @@
         </div>
     </footer>
 
-    <!-- 手機版選單切換 Script -->
-    <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            var menu = document.getElementById('mobile-menu');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-            } else {
-                menu.classList.add('hidden');
-            }
-        });
-
-        // 點擊選單連結後自動關閉選單
-        const mobileLinks = document.querySelectorAll('#mobile-menu a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
-        });
-    </script>
+    <!-- 引入自訂 JavaScript -->
+    <script src="js/script.js"></script>
 </body>
 </html>

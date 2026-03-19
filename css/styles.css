@@ -1,0 +1,52 @@
+/* ===================================
+   全域樣式設定
+   =================================== */
+
+:root {
+    --brand-green: #9DC183;
+    --brand-green-dark: #7A9A63;
+    --brand-peach: #F7E7CE;
+    --brand-stone: #FAF9F6;
+    --text-main: #2C3E50;
+    --gray-600: #666666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--brand-stone);
+    color: var(--text-main);
+    font-family: '"Noto Sans TC"', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===================================
+   英雄區背景
+   =================================== */
+
+.hero-bg {
+    background-image: linear-gradient(rgba(250, 249, 246, 0.8), rgba(250, 249, 246, 0.9)), 
+    url('https://images.unsplash.com/photo-1519689680058-324335c77eba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* ===================================
+   RWD 斷點（Tailwind-aligned）
+   =================================== */
+
+@media (max-width: 640px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+}
