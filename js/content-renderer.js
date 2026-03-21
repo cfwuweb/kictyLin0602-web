@@ -23,10 +23,7 @@ async function loadSiteContent() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         siteData = await response.json();
-        console.log('✅ JSON 數據加載成功:');
-        console.log('  - 服務項目:', siteData.services?.length || 0);
-        console.log('  - 客戶見證:', siteData.testimonials?.length || 0);
-        console.log('  - 聯絡方式:', Object.keys(siteData.contacts || {}).length);
+        console.log('✅ JSON 數據加載成功');
         
         contentLoaded = true;
         renderAllContent();
@@ -36,58 +33,104 @@ async function loadSiteContent() {
     }
 }
 
+// === 設定元素的文字/HTML ===
+function setElement(id, content, isHtml = false) {
+    const el = document.getElementById(id);
+    if (el) {
+        if (isHtml) {
+            el.innerHTML = content;
+        } else {
+            el.textContent = content;
+        }
+    }
+}
+
 // === 主渲染函數 ===
 function renderAllContent() {
     console.log('🎨 開始渲染頁面內容...');
     
     try {
-        // 1. 清空並重新渲染服務項目
-        if (siteData.services && siteData.services.length > 0) {
-            renderServices();
-        }
-        
-        // 2. 清空並重新渲染客戶見證
-        if (siteData.testimonials && siteData.testimonials.length > 0) {
-            renderTestimonials();
-        }
-
-        // 3. 更新聯絡信息（Footer 和 CTA 按鈕）
-        if (siteData.contacts) {
-            updateContactLinks();
-            updateFooterContacts();
-        }
+        if (siteData.brand) renderBrand();
+        if (siteData.hero) renderHero();
+        if (siteData.trustBadges) renderTrustBadges();
+        if (siteData.servicesHeader) renderServicesHeader();
+        if (siteData.services) renderServices();
+        if (siteData.mealGallery) renderMealGallery();
+        if (siteData.testimonialsHeader) renderTestimonialsHeader();
+        if (siteData.testimonials) renderTestimonials();
+        if (siteData.booking) renderBooking();
+        if (siteData.contacts) renderContacts();
         
         console.log('✅ 所有內容渲染完成！');
-        
     } catch (error) {
         console.error('❌ 渲染失敗:', error);
     }
 }
 
-// ===================================
-// 服務項目渲染
-// ===================================
+// 渲染品牌資訊
+function renderBrand() {
+    setElement('page-title', siteData.brand.pageTitle);
+    setElement('nav-brand-name', siteData.brand.name);
+    setElement('nav-brand-subtitle', siteData.brand.subtitle);
+    setElement('footer-brand', `${siteData.brand.name} ${siteData.brand.subtitle}`);
+    setElement('footer-desc', siteData.brand.description);
+    if (document.getElementById('footer-copyright')) {
+        document.getElementById('footer-copyright').innerHTML = `&copy; ${siteData.brand.copyrightYear} ${siteData.brand.copyrightName}.<br class="md:hidden"> All rights reserved.`;
+    }
+}
+
+// 渲染 Hero 區塊
+function renderHero() {
+    setElement('hero-tagline', siteData.hero.tagline);
+    setElement('hero-title', siteData.hero.mainTitleHtml, true);
+    setElement('hero-desc', siteData.hero.description, true);
+    setElement('hero-cta1', `<i class="fa-brands fa-line mr-2"></i>${siteData.hero.cta1Text}`, true);
+    setElement('hero-cta2', siteData.hero.cta2Text);
+    
+    const heroImg = document.getElementById('hero-img');
+    if (heroImg && siteData.hero.imageUrl) {
+        heroImg.src = siteData.hero.imageUrl;
+    }
+}
+
+// 渲染信任標章
+function renderTrustBadges() {
+    const container = document.getElementById('trust-badges');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    siteData.trustBadges.forEach(badge => {
+        container.innerHTML += `
+            <div class="flex items-center gap-4 p-2">
+                <div class="w-14 h-14 shrink-0 ${badge.bgClass} rounded-full flex items-center justify-center ${badge.textClass}">
+                    <i class="${badge.icon} text-3xl"></i>
+                </div>
+                <div>
+                    <p class="font-bold text-base md:text-lg text-text-main">${badge.title}</p>
+                    <p class="text-sm text-gray-500">${badge.subtitle}</p>
+                </div>
+            </div>
+        `;
+    });
+}
+
+// 渲染服務項目 Header
+function renderServicesHeader() {
+    setElement('services-title', siteData.servicesHeader.title);
+    setElement('services-desc', siteData.servicesHeader.description);
+}
+
+// 渲染服務項目
 function renderServices() {
-    console.log('📌 渲染服務項目...');
-    
     const serviceSection = document.getElementById('services');
-    if (!serviceSection) {
-        console.warn('⚠️ 找不到 id=services 的區段');
-        return;
-    }
+    if (!serviceSection) return;
     
-    // 在 #services 內部查找 .grid 容器
     let container = serviceSection.querySelector('.grid');
+    if (!container) return;
     
-    if (!container) {
-        console.error('❌ 無法在 #services 內找到 .grid 容器');
-        return;
-    }
-    
-    console.log(`清空舊内容，渲染 ${siteData.services.length} 個服務項目...`);
     container.innerHTML = '';
     
-    siteData.services.forEach((service, index) => {
+    siteData.services.forEach((service) => {
         const card = document.createElement('div');
         card.className = 'bg-brand-stone p-6 md:p-8 rounded-2xl hover:shadow-lg transition group border border-gray-100';
         
@@ -102,7 +145,7 @@ function renderServices() {
         }
         
         card.innerHTML = `
-            <div class="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-green text-3xl mb-6 group-hover:scale-110 transition">
+            <div class="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-green text-4xl mb-6 group-hover:scale-110 transition">
                 <i class="${service.icon}"></i>
             </div>
             <h3 class="font-serif font-bold text-xl md:text-2xl mb-4 text-text-main">${service.title}</h3>
@@ -110,38 +153,53 @@ function renderServices() {
                 ${itemsHtml}
             </ul>
         `;
-        
         container.appendChild(card);
-        console.log(`  ✓ 服務 ${index + 1}: "${service.title}" (${service.items?.length || 0} 項)`);
     });
-    
-    console.log(`✅ ${siteData.services.length} 個服務項目已渲染`);
 }
 
-// ===================================
-// 客戶見證渲染
-// ===================================
+// 渲染月子膳食區塊
+function renderMealGallery() {
+    const container = document.getElementById('meal-images-container');
+    if (container && siteData.mealGallery.images) {
+        container.innerHTML = '';
+        siteData.mealGallery.images.forEach(imgUrl => {
+            container.innerHTML += `<img src="${imgUrl}" alt="健康月子餐" class="rounded-2xl shadow-md w-full h-48 md:h-80 object-cover hover:scale-105 transition duration-300">`;
+        });
+    } else {
+        // Fallback for single image (if container hasn't changed or config is old)
+        const img = document.getElementById('meal-img');
+        if (img && siteData.mealGallery.imageUrl) img.src = siteData.mealGallery.imageUrl;
+    }
+    
+    setElement('meal-title', siteData.mealGallery.title);
+    setElement('meal-desc', siteData.mealGallery.description, true);
+    
+    const tagsContainer = document.getElementById('meal-tags');
+    if (tagsContainer && siteData.mealGallery.tags) {
+        tagsContainer.innerHTML = '';
+        siteData.mealGallery.tags.forEach(tag => {
+            tagsContainer.innerHTML += `<span class="bg-orange-50 text-orange-700 px-4 py-1.5 rounded-full text-base font-medium border border-orange-100">${tag}</span>`;
+        });
+    }
+}
+
+// 渲染見證 Header
+function renderTestimonialsHeader() {
+    setElement('testimonials-title', siteData.testimonialsHeader.title);
+    setElement('testimonials-desc', siteData.testimonialsHeader.description);
+}
+
+// 渲染見證列表
 function renderTestimonials() {
-    console.log('📌 渲染客戶見證...');
+    const section = document.getElementById('testimonials');
+    if (!section) return;
     
-    const testimonialSection = document.getElementById('testimonials');
-    if (!testimonialSection) {
-        console.warn('⚠️ 找不到 id=testimonials 的區段');
-        return;
-    }
+    let container = section.querySelector('.grid');
+    if (!container) return;
     
-    // 在 #testimonials 內部查找 .grid 容器
-    let container = testimonialSection.querySelector('.grid');
-    
-    if (!container) {
-        console.error('❌ 無法在 #testimonials 內找到 .grid 容器');
-        return;
-    }
-    
-    console.log(`清空舊內容，渲染 ${siteData.testimonials.length} 個見證...`);
     container.innerHTML = '';
     
-    siteData.testimonials.forEach((testimonial, index) => {
+    siteData.testimonials.forEach(testimonial => {
         const card = document.createElement('div');
         card.className = 'bg-brand-stone p-8 rounded-2xl relative shadow-sm';
         
@@ -160,79 +218,58 @@ function renderTestimonials() {
                 </div>
             </div>
         `;
-        
         container.appendChild(card);
-        console.log(`  ✓ 見證 ${index + 1}: ${testimonial.author}`);
     });
-    
-    console.log(`✅ ${siteData.testimonials.length} 個見證已渲染`);
 }
 
-// ===================================
-// 聯絡信息渲染
-// ===================================
-
-/**
- * 更新頁面中的聯絡連結（購物動作按鈕）
- */
-function updateContactLinks() {
-    console.log('📌 更新聯絡連結...');
+// 渲染預約狀態
+function renderBooking() {
+    setElement('booking-title', siteData.booking.title);
+    setElement('booking-status-header', siteData.booking.statusHeader);
     
-    if (!siteData.contacts) return;
-    
-    const contacts = siteData.contacts;
-    
-    // 更新 CTA 按鈕（LINE 諮詢）
-    if (contacts.line && contacts.line.url) {
-        const lineButtons = document.querySelectorAll('a[href*="line"], a:has(i.fa-brands.fa-line)');
-        lineButtons.forEach(btn => {
-            if (btn.href.includes('line') || btn.textContent.includes('LINE')) {
-                btn.href = contacts.line.url;
-                btn.textContent = `${contacts.line.displayText}`;
-                console.log('✓ LINE 按鈕已更新');
-            }
-        });
+    const linesContainer = document.getElementById('booking-status-lines');
+    if (linesContainer && siteData.booking.statusLines) {
+        linesContainer.innerHTML = siteData.booking.statusLines.join('');
     }
     
-    // 更新 Facebook 連結
-    if (contacts.facebook && contacts.facebook.url) {
-        const fbLinks = document.querySelectorAll('a[href*="facebook"]');
-        fbLinks.forEach(link => {
-            link.href = contacts.facebook.url;
-            console.log('✓ Facebook 連結已更新');
-        });
-    }
-    
-    // 更新 Instagram 連結
-    if (contacts.instagram && contacts.instagram.url) {
-        const igLinks = document.querySelectorAll('a[href*="instagram"]');
-        igLinks.forEach(link => {
-            link.href = contacts.instagram.url;
-            console.log('✓ Instagram 連結已更新');
-        });
-    }
+    setElement('booking-note', siteData.booking.note, true);
 }
 
-/**
- * 更新 Footer 中的聯絡信息
- */
-function updateFooterContacts() {
-    console.log('📌 更新 Footer 聯絡方式...');
-    
-    if (!siteData.contacts) return;
-    
+// 渲染聯絡方式
+function renderContacts() {
     const contacts = siteData.contacts;
+    if (!contacts) return;
+    
+    // 更新 CTA 連結
+    if (contacts.line?.url) {
+        const heroCta1 = document.getElementById('hero-cta1');
+        if (heroCta1) heroCta1.href = contacts.line.url;
+        
+        const bookingCta1 = document.getElementById('booking-cta1');
+        if (bookingCta1) {
+            bookingCta1.href = contacts.line.url;
+            bookingCta1.innerHTML = `<i class="${contacts.line.icon} text-3xl"></i> ${contacts.line.displayText}`;
+        }
+    }
+    
+    if (contacts.quote?.url) {
+        const bookingCta2 = document.getElementById('booking-cta2');
+        if (bookingCta2 && contacts.quote.url !== '#') {
+            bookingCta2.href = contacts.quote.url;
+            bookingCta2.innerHTML = `<i class="${contacts.quote.icon} text-2xl"></i> ${contacts.quote.displayText}`;
+        }
+    }
+    
+    // 渲染 Footer Social Links 和文字聯絡
+    updateFooterContacts(contacts);
+}
+
+function updateFooterContacts(contacts) {
     const footer = document.querySelector('footer');
-    if (!footer) {
-        console.warn('⚠️ 找不到 footer 元素');
-        return;
-    }
+    if (!footer) return;
     
-    // 尋找或創建聯絡方式容器
     let contactsContainer = footer.querySelector('[data-contacts-container]');
-    
     if (!contactsContainer) {
-        // 如果沒有，就在 social links 之前或之後創建一個
         const socialLinksDiv = footer.querySelector('.flex.gap-5');
         if (socialLinksDiv) {
             contactsContainer = document.createElement('div');
@@ -244,9 +281,7 @@ function updateFooterContacts() {
     
     if (contactsContainer) {
         let html = '';
-        
-        // 添加電話
-        if (contacts.phone) {
+        if (contacts.phone && contacts.phone.value) {
             html += `
                 <div class="flex items-center justify-center md:justify-start gap-2">
                     <i class="${contacts.phone.icon} text-brand-green"></i>
@@ -256,9 +291,7 @@ function updateFooterContacts() {
                 </div>
             `;
         }
-        
-        // 添加 LINE
-        if (contacts.line) {
+        if (contacts.line && contacts.line.value) {
             html += `
                 <div class="flex items-center justify-center md:justify-start gap-2">
                     <i class="${contacts.line.icon} text-green-500"></i>
@@ -268,82 +301,25 @@ function updateFooterContacts() {
                 </div>
             `;
         }
-        
         contactsContainer.innerHTML = html;
-        console.log('✓ Footer 聯絡方式已更新');
-    } else {
-        console.warn('⚠️ 無法創建聯絡方式容器');
     }
     
-    // 更新社群媒體連結
-    updateSocialLinks();
-}
-
-/**
- * 更新社群媒體連結
- */
-function updateSocialLinks() {
-    console.log('📌 更新社群媒體連結...');
-    
-    if (!siteData.contacts) return;
-    
-    const contacts = siteData.contacts;
-    const socialContainer = document.querySelector('footer .flex.gap-5');
-    
-    if (!socialContainer) {
-        console.warn('⚠️ 找不到社群媒體容器');
-        return;
-    }
-    
-    // 清空舊的
-    socialContainer.innerHTML = '';
-    
-    // Facebook
-    if (contacts.facebook && contacts.facebook.url) {
-        const fbLink = document.createElement('a');
-        fbLink.href = contacts.facebook.url;
-        fbLink.target = '_blank';
-        fbLink.className = 'w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-xl';
-        fbLink.innerHTML = `<i class="${contacts.facebook.icon}"></i>`;
-        socialContainer.appendChild(fbLink);
-        console.log('✓ Facebook 圖標已添加');
-    }
-    
-    // Instagram
-    if (contacts.instagram && contacts.instagram.url) {
-        const igLink = document.createElement('a');
-        igLink.href = contacts.instagram.url;
-        igLink.target = '_blank';
-        igLink.className = 'w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-xl';
-        igLink.innerHTML = `<i class="${contacts.instagram.icon}"></i>`;
-        socialContainer.appendChild(igLink);
-        console.log('✓ Instagram 圖標已添加');
+    const socialContainer = footer.querySelector('.flex.gap-5');
+    if (socialContainer) {
+        socialContainer.innerHTML = '';
+        if (contacts.facebook && contacts.facebook.url) {
+            socialContainer.innerHTML += `
+                <a href="${contacts.facebook.url}" target="_blank" class="w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-2xl">
+                    <i class="${contacts.facebook.icon}"></i>
+                </a>
+            `;
+        }
+        if (contacts.instagram && contacts.instagram.url) {
+            socialContainer.innerHTML += `
+                <a href="${contacts.instagram.url}" target="_blank" class="w-12 h-12 rounded-full bg-brand-stone flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand-green transition text-2xl">
+                    <i class="${contacts.instagram.icon}"></i>
+                </a>
+            `;
+        }
     }
 }
-
-// === 調試輔助函數 ===
-window.debugContent = function() {
-    console.log('=== 內容加載調試信息 ===');
-    console.log('已加載:', contentLoaded);
-    console.log('完整數據:', siteData);
-    console.log('服務項目:', siteData.services);
-    console.log('見證:', siteData.testimonials);
-    console.log('聯絡信息:', siteData.contacts);
-    
-    console.log('=== 聯絡信息詳情 ===');
-    if (siteData.contacts) {
-        Object.entries(siteData.contacts).forEach(([key, value]) => {
-            console.log(`${key}:`, value);
-        });
-    }
-};
-
-// 頁面加載完成日誌
-window.addEventListener('load', function() {
-    console.log('✅ content-renderer.js 已完全初始化');
-    if (contentLoaded) {
-        console.log('✅ 內容已成功加載並渲染');
-    } else {
-        console.warn('⚠️ 內容尚未加載');
-    }
-});

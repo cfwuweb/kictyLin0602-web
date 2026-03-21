@@ -1,189 +1,81 @@
-# 🔧 官網內容管理指南
+# 🔧 芝秀月嫂 - 一頁式專屬網頁靜態範本指南
 
-歡迎使用芝秀月嫂官網的簡易內容管理系統！以下是詳細步驟。
-
----
-
-## 📋 快速開始
-
-### 1️⃣ 訪問管理面板
-在瀏覽器中打開以下地址：
-```
-http://localhost:8000/admin.html
-```
-或直接點擊官網上的「管理面板」連結。
-
-### 2️⃣ 編輯內容
-- 在管理面板中選擇要編輯的內容類別（服務項目、客戶見證等）
-- 修改文字、圖示或圖片
-- 點擊「保存所有更改」按鈕
-
-### 3️⃣ 完成！
-更改會自動保存到 `data/content.json` 並立即顯示在官網上。
+歡迎使用「芝秀月嫂」一頁式網頁範本！這個範本專為「到府月嫂」打造，不需要任何後台伺服器，直接支援 **Github Pages** 免費靜態網頁發佈。
+為了方便您未來的新增或修改，所有的文案、圖片、設定都統一集中寫在一個小檔案中：`data/content.json`。
 
 ---
 
-## 🎯 各部分編輯指南
+## 🚀 第一步：如何建立自己的網頁倉庫與發布？
 
-### 服務項目管理
-自動生成四個服務項目卡片。您可以：
-- ✏️ 修改標題
-- 🎨 更改圖示代碼（從 [FontAwesome](https://fontawesome.com/icons) 複製）
-- 📝 編輯項目列表（每行一項）
-- ➕ 點擊「新增服務項目」按鈕增加新卡片
-- 🗑️ 點擊「刪除」移除卡片
+如果您想要為自己（或是新的月嫂）建立一個一頁式網頁，請按照以下步驟進行：
 
-**例子：**
-```
-圖示代碼：fa-solid fa-heart-pulse
-標題：嬰幼兒 CPR+AED
-項目：
-定期複訓認證
-24小時待命
-```
+### 1. 取得這份程式碼
+- 如果您已經有 Github 帳號，請直接 **Fork** 此倉庫 (Repository)。
+- 或者，將整包檔案下載為 ZIP，然後在您的 Github 建立一個新的倉庫（例如：`amy-nanny-web`），並將所有檔案上傳推送到該倉庫的 `main` 分支。
 
----
-
-### 客戶見證管理
-編輯客戶評論和頭像。您可以：
-- 💬 修改客戶評語
-- 👤 編輯客戶名稱和身份
-- 🖼️ 更換頭像圖片 URL
-- ➕ 增加新的客戶見證
-- 🗑️ 删除不需要的見證
-
-**頭像圖片建議：**
-- 使用 [Unsplash](https://unsplash.com) 免費圖片
-- 複製圖片的「Copy URL」
-- 推薦尺寸：150×150 像素
+### 2. 開啟 Github Pages 發布功能
+1. 來到您的新 Github 倉庫頁面。
+2. 點擊上方的 **Settings** 標籤。
+3. 在左側選單往下找，點擊 **Pages**。
+4. 在 `Build and deployment` 區塊中：
+   - Source: 選擇 `Deploy from a branch`。
+   - Branch: 選擇 `main`（或 master），資料夾選 `/(root)`。
+   - 點擊 **Save**。
+5. 等待約 2~5 分鐘，頁面上方會顯示您的公開網址（例如：`https://你的帳號.github.io/amy-nanny-web/`），點擊網址即可看見您的網站！
 
 ---
 
-### 首屏文案編輯
-修改主頁面最頂部的內容：
-- 📌 品牌名稱 → 會顯示在導覽列
-- 📌 副標題
-- 📌 服務地區
-- 📌 首屏標籤（如「📍 專注服務大新竹」）
-- 📌 主標題
-- 📌 品牌簡介
+## 🎯 第二步：如何修改網站內容（文案與圖片）
+
+所有的內容都被抽離到了 `data/content.json`。您不需要懂得寫網頁程式，只需修改此檔案即可。
+
+### 📝 在 Github 上修改的步驟：
+1. 在 Github 倉庫清單中，進入 `data` 資料夾。
+2. 點擊 `content.json`。
+3. 點擊右上角的小鉛筆圖示 (Edit this file)。
+4. 找到對應的欄位並將引號 `""` 內的文字或網址替換成您的資料（**注意：請勿不小心刪除引號或逗號！**）。
+5. 完成後點擊右上角的綠色按鈕 **Commit changes** 來儲存。
+6. 等待 2~5 分鐘，重新整理您的網站，內容就會自動更新。
+
+### 📖 主要欄位說明：
+
+| 區塊名稱 | 欄位 | 說明 |
+| --- | --- | --- |
+| **品牌設定 (brand)** | `name` | 品牌主名稱 (例如：心馨到府) |
+| | `subtitle` | 子名稱／月嫂姓名 (例如：芝秀月嫂) |
+| | `serviceArea` | 服務地區 (用於各種文案替換) |
+| **首圖區塊 (hero)** | `mainTitleHtml` | 大標題 (支援 HTML 如 `<br>` 換行) |
+| | `imageUrl` | 封面大圖的圖片網址 |
+| **信任標章 (trustBadges)**| `title`, `subtitle` | 首圖旁邊的四個小方塊特點宣告 |
+| **服務項目 (services)**| `title`, `items` | 修改四大照護模組的名稱與細項列表 |
+| **月子膳食 (mealGallery)**| `imageUrl`, `description`| 膳食介紹區塊的照片與文案修改 |
+| **家長見證 (testimonials)**| `quote`, `author`, `imageUrl`| 編輯家長留下的評價內容與頭像圖片 |
+| **預約檔期 (booking)** | `statusLines` | 編輯目前的預約狀態文字 (滿檔/熱烈預約中) |
+| **聯絡方式 (contacts)** | `line.url`, `phone.value` | 修改您的 Line 連結、電話、FB 粉絲專頁網址 |
 
 ---
 
-### 檔期狀態管理
-更新預約檔期信息：
-- 📅 目前檔期狀態（例：2026年 07月 - 12月：熱烈預約中）
-- 🎟️ 剩餘名額
+## 🎨 圖示變更 (Icon)
 
-修改後會自動更新在官網的聯絡區域。
+範本採用 FontAwesome 圖示。如果您想更換小圖示：
+1. 前往 [FontAwesome 6.4 Icons](https://fontawesome.com/icons) 搜尋免費圖示。
+2. 複製圖示代碼 (例如：`fa-solid fa-baby`)。
+3. 在 `content.json` 中的 `icon` 欄位貼上替換即可。
 
----
+## 📸 圖片建議
 
-## 🎨 圖示選擇指南
-
-所有圖示都來自 [FontAwesome 6.4](https://fontawesome.com/icons)
-
-### 常用圖示：
-| 用途 | 圖示代碼 |
-|------|--------|
-| 産婦護理 | `fa-solid fa-person-breastfeeding` |
-| 嬰兒 | `fa-solid fa-baby` |
-| 食物 | `fa-solid fa-bowl-rice` |
-| 清潔 | `fa-solid fa-spray-can-sparkles` |
-| 心臟 | `fa-solid fa-heart-pulse` |
-| 水滴 | `fa-solid fa-droplet` |
-| 人群 | `fa-solid fa-users` |
-| 證書 | `fa-solid fa-certificate` |
-
-### 怎樣找圖示？
-1. 進入 [fontawesome.com/icons](https://fontawesome.com/icons)
-2. 在搜尋框輸入關鍵字（例：「baby」）
-3. 點擊選中的圖示
-4. 複製圖示代碼（格式：`fa-solid fa-[名稱]`）
-5. 貼到管理面板即可
+當您在修改 `hero.imageUrl`, `mealGallery.imageUrl` 或是客戶頭像時，建議使用以下方式取得圖片網址：
+- 如果您有自己的照片，請先上傳到您的 Github 倉庫中的 `images` 資料夾（您可以自己建立一個），並在 json 中填入相對路徑，例如：`images/my-photo.jpg`。
+- 也可以使用圖床服務或是 [Unsplash](https://unsplash.com/) 免費圖庫的圖片 URL。
 
 ---
 
-## 💾 保存與備份
+## ⚠️ 常見問題 (FAQ)
 
-### 自動保存
-編輯完成後，點擊「保存所有更改」按鈕：
-- ✅ 會自動下載一個 `content.json` 文件
-- ✅ 同時保存到本地存儲器
+**Q：為什麼我修改了 json，網站卻沒有更新？**
+A：有兩個可能：
+1. Github Pages 重新打包需要幾分鐘時間，請稍候再看。
+2. 可能是您瀏覽器的「快取」未清除，請在網站上按下 `Ctrl + F5` (Windows) 或 `Cmd + Shift + R` (Mac) 強制重新整理。
+3. 在編輯 json 時不小心刪除了引號或花括號，導致 json 格式錯誤。您可以使用 [JSONLint](https://jsonlint.com/) 檢查您的程式碼是否有報錯。
 
-### 手動更新 JSON（進階）
-如果您熟悉 JSON 格式，可以直接編輯 `data/content.json` 文件：
-```
-/workspaces/kictyLin0602-web/data/content.json
-```
-
-每次修改保存後，官網會自動讀取新數據。
-
----
-
-## ❌ 常見問題
-
-### Q: 頁面顯示不出新內容？
-**A:** 
-1. 確保點擊了「保存所有更改」按鈕
-2. 刷新網頁（按 F5）
-3. 清除瀏覽器快取（Ctrl+Shift+Delete）
-
-### Q: 圖片無法顯示？
-**A:** 
-- 檢查 URL 是否完整（以 `https://` 開頭）
-- 確保圖片網站未被封鎖
-- 試試其他圖片 URL
-
-### Q: 圖示顯示為方框？
-**A:** 
-- 圖示代碼可能有誤
-- 重新複製正確的代碼
-- 確認使用了 FontAwesome 的圖示代碼
-
-### Q: JSON 文件損壞了怎麼辦？
-**A:** 
-1. 在 VS Code 中打開 `data/content.json`
-2. 複製本指南最下方的「原始 JSON 模板」
-3. 貼上替換整個文件內容
-
----
-
-## 📁 檔案結構說明
-
-```
-/workspaces/kictyLin0602-web/
-├── index.html              ← 官網首頁
-├── admin.html              ← 📌 管理面板（編輯內容在此）
-├── css/
-│   ├── styles.css          ← 官網樣式
-│   └── admin.css           ← 管理面板樣式
-├── js/
-│   ├── script.js           ← 官網功能
-│   ├── content-renderer.js ← 內容加載和顯示
-│   └── admin.js            ← 管理面板功能
-└── data/
-    └── content.json        ← 📌 所有內容數據（會自動更新）
-```
-
----
-
-## 🚀 下一步建議
-
-1. **增加更多客戶見證** → 在客戶見證頁面添加新見證
-2. **更新服務描述** → 根據實際情況修改服務項目
-3. **定期更新檔期** → 月底更新預約檔期狀態
-4. **備份重要數據** → 定期下載保存 `content.json`
-
----
-
-## 🆘 需要幫助？
-
-如有任何問題，查看以下：
-- FontAwesome 圖示庫：https://fontawesome.com/icons
-- Unsplash 免費圖片：https://unsplash.com
-- JSON 格式驗證：https://jsonlint.com
-
----
-
-**祝您使用愉快！** 🎉
+**祝您接案順利！** 🎉

@@ -2,14 +2,53 @@
   "brand": {
     "name": "心馨到府",
     "subtitle": "芝秀月嫂",
-    "serviceArea": "大高雄地區",
-    "description": "10 年實戰經驗、科學育兒與營養調理。用醫療級的嚴謹與母親般的溫暖，陪您安心度過黃金月子期。"
+    "serviceArea": "大新竹 / 竹北地區",
+    "pageTitle": "芝秀專業到府月嫂 | 新竹竹北頂級母嬰照護",
+    "description": "提供大新竹地區最專業的產後居家照護。",
+    "copyrightYear": "2026",
+    "copyrightName": "Zhi-Xiu Care Studio"
   },
   "hero": {
-    "mainTitle": "不只是帶小孩，更是您身心修復的溫柔守護者。",
-    "tagline": "📍 專注服務大高雄地區",
+    "tagline": "📍 專注服務大新竹 / 竹北地區",
+    "mainTitleHtml": "不只是帶小孩，<br>\n更是您身心修復的<br>\n<span class=\"text-brand-green block mt-2\">溫柔守護者。</span>",
+    "description": "10 年實戰經驗、科學育兒與營養調理。<br class=\"hidden sm:block\">\n用醫療級的嚴謹與母親般的溫暖，陪您安心度過黃金月子期。",
+    "imageUrl": "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     "cta1Text": "免費線上諮詢",
     "cta2Text": "了解服務流程"
+  },
+  "trustBadges": [
+    {
+      "icon": "fa-solid fa-certificate",
+      "bgClass": "bg-brand-peach",
+      "textClass": "text-orange-600",
+      "title": "國家保母技術士",
+      "subtitle": "合格證照認證"
+    },
+    {
+      "icon": "fa-solid fa-heart-pulse",
+      "bgClass": "bg-green-100",
+      "textClass": "text-green-600",
+      "title": "嬰幼兒 CPR+AED",
+      "subtitle": "定期複訓認證"
+    },
+    {
+      "icon": "fa-solid fa-droplet",
+      "bgClass": "bg-blue-100",
+      "textClass": "text-blue-600",
+      "title": "專業泌乳指導",
+      "subtitle": "無痛疏通技術"
+    },
+    {
+      "icon": "fa-solid fa-users",
+      "bgClass": "bg-purple-100",
+      "textClass": "text-purple-600",
+      "title": "100+ 家庭見證",
+      "subtitle": "零客訴安心口碑"
+    }
+  ],
+  "servicesHeader": {
+    "title": "全方位的黃金月子照護系統",
+    "description": "拒絕無效傳統，導入科學實證。我們將月子期拆解為四大核心模組，精準照護母嬰需求。"
   },
   "services": [
     {
@@ -20,8 +59,7 @@
         "專業無痛泌乳按摩疏通",
         "古法綁腹帶與子宮按摩",
         "產後憂鬱預防與心理支持",
-        "大風草藥浴協助擦澡",
-        "24小時到府照護，夜間不打烊"
+        "大風草藥浴協助擦澡"
       ]
     },
     {
@@ -58,71 +96,84 @@
       ]
     }
   ],
+  "mealGallery": {
+    "images": [
+      "images/1509727_0.jpg",
+      "images/1509729_0.jpg"
+    ],
+    "title": "星級月子膳食，顛覆傳統想像",
+    "description": "「月子餐不該是痛苦的考驗。」<br>芝秀具備中餐烹調丙級證照，結合現代營養學與中醫四階段調理（排毒、修復、大補、固氣），為您打造少油低鹽、豐富多樣的星級居家料理。",
+    "tags": [
+      "#中餐丙級證照",
+      "#無水料理",
+      "#客製化菜單"
+    ]
+  },
+  "testimonialsHeader": {
+    "title": "聽聽媽媽們怎麼說",
+    "description": "真實的口碑，是我們最自豪的履歷。"
+  },
   "testimonials": [
     {
       "id": 1,
       "quote": "芝秀救了我的母乳之路！因為塞奶痛到哭，她不僅用溫柔的手法幫我無痛疏通，還安撫了我的焦慮。她做的藥膳排骨比外面餐廳還好吃！",
-      "author": "高雄 林小姐",
+      "author": "竹北 林小姐",
       "type": "第一胎 新手媽媽 (30天)",
       "imageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
     },
     {
       "id": 2,
       "quote": "身為工程師非常看重『數據和SOP』。芝秀每天記錄寶寶奶量、大小便次數，作息調整非常有邏輯，讓我們接手時完全不慌亂，超級推薦！",
-      "author": "高雄 張先生",
+      "author": "東區 張先生",
       "type": "第二胎 雙寶家庭 (45天)",
       "imageUrl": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
     },
     {
       "id": 3,
       "quote": "這是我第二次找芝秀了。把寶寶照顧得健康外，還很會開導大寶情緒，準備的副食品和月子餐全家都愛吃，根本捨不得她退房。",
-      "author": "高雄 陳太太",
+      "author": "竹北 陳太太",
       "type": "高齡產婦 (60天)",
       "imageUrl": "https://images.unsplash.com/photo-1531123897727-8f129e1bf98a?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
     }
   ],
-  "availability": {
-    "status": "2026年 07月 - 12月：熱烈預約中",
-    "spotsLeft": "2"
+  "booking": {
+    "title": "為您的寶寶保留最安心的守護",
+    "statusHeader": "最新檔期狀態更新",
+    "statusLines": [
+      "<p class=\"line-through text-gray-400\">2026年 01月 - 06月：檔期已全數額滿</p>",
+      "<p class=\"font-bold text-brand-green-dark text-xl md:text-2xl\">2026年 07月 - 12月：熱烈預約中（剩餘 2 席）</p>"
+    ],
+    "note": "為了維持最高品質的照護，芝秀每月僅服務一組家庭。<br class=\"hidden sm:block\">強烈建議於驗孕拿到媽媽手冊後，盡早預約諮詢。"
   },
   "contacts": {
     "phone": {
-      "label": "電話",
-      "value": "0912-345-678",
-      "displayText": "0912-345-678",
+      "value": "0912-345-777",
+      "displayText": "0912-345-777",
       "icon": "fa-solid fa-phone",
-      "url": "tel:0912345678"
+      "url": "tel:0912345777"
     },
     "line": {
-      "label": "LINE",
       "value": "芝秀月嫂",
       "displayText": "加 LINE 線上諮詢",
       "icon": "fa-brands fa-line",
-      "url": "https://line.me/R/ti/p/YOUR_LINE_ID",
-      "description": "最快回應時間：1小時內"
+      "url": "https://line.me/R/ti/p/YOUR_LINE_ID"
     },
     "facebook": {
-      "label": "Facebook",
       "value": "芝秀月嫂工作室",
       "displayText": "追蹤粉專",
       "icon": "fa-brands fa-facebook-f",
-      "url": "https://www.facebook.com/YOUR_PAGE_ID",
-      "description": "分享育兒知識與月子餐食譜"
+      "url": "https://www.facebook.com/YOUR_PAGE_ID"
     },
     "instagram": {
-      "label": "Instagram",
       "value": "@zhixiu_nanny",
       "displayText": "追蹤 IG",
       "icon": "fa-brands fa-instagram",
-      "url": "https://www.instagram.com/YOUR_IG_HANDLE",
-      "description": "日常照護與家庭互動分享"
+      "url": "https://www.instagram.com/YOUR_IG_HANDLE"
     },
-    "email": {
-      "label": "電子郵件",
-      "value": "zhixiu@example.com",
-      "displayText": "聯繫我們",
-      "icon": "fa-solid fa-envelope",
-      "url": "mailto:zhixiu@example.com"
+    "quote": {
+      "displayText": "索取服務報價單",
+      "icon": "fa-solid fa-file-invoice-dollar",
+      "url": "#"
     }
   }
 }
